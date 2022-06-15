@@ -1,5 +1,9 @@
 # React Pixabay
 
+## Env variables
+
+Rename .env.sample to .env and add a your Pixabay API key
+
 ## Commands
 
 ### URL
