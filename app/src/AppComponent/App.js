@@ -12,7 +12,10 @@ function App() {
     // Retrieve images from Pixabay 
     pixabayApiService.searchImagesByQuery(searchQuery)
       .then((result) => {
-        return setSearchImagesResult(result.hits);
+        return setSearchImagesResult(result.hits.slice(0, 6));
+      })
+      .catch(() => {
+        return setSearchImagesResult([]);
       });
   }, [searchQuery]);
 
@@ -24,10 +27,13 @@ function App() {
       </div>
 
       <div className="grid md:grid-cols-3 gap-4">
-        {Object.keys(searchImagesResult).map((key) => {
-          let item = searchImagesResult[key];
-          return <AppPicture key={key} data={item} />
-        })}
+        {
+          searchImagesResult.length ? Object.keys(searchImagesResult).map((key) => {
+            let item = searchImagesResult[key];
+            return <AppPicture key={key} data={item} />
+          })
+            : <span className="col-span-3 text-center">An error has occured. Can't find any image.</span>
+        }
       </div>
     </div>
   );
